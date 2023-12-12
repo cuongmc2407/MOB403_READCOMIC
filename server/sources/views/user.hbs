@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="btn-group my-2">
+        <a href="/api/comic" class="btn btn-primary " aria-current="page">Truyện</a>
+        <a href="/api/user" class="btn btn-primary active">user</a>
+    </div>
+    <h1 class="my-4  text-center">Quản lí user</h1>
+
+
+    <!-- Danh sách user -->
+    <table class="table table-striped table-bordered my-2">
+        <thead class="bg-dark-subtle">
+            <tr>
+                <th class="text-center">Tên người dùng</th>
+                {{!-- <th class="text-center">Mật khẩu</th> --}}
+                <th class="text-center">Email</th>
+                <th class="text-center">Họ tên</th>
+                <th class="text-center">Hành động</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            {{#each comic}}
+            <tr>
+                <td class="text-center">{{this.username}}</td>
+                <td class="text-center">{{this.email}}</td>
+                <td class="text-center">{{this.fullname}}</td>
+                {{!-- <td class="text-center">{{this.coverImage}}</td> --}}
+
+                <td class="text-center">
+                    <!-- Các nút xóa, sửa user -->
+                    <button type="button" class="btn btn-danger btn-sm mr-2" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal" data-bs-id="{{this._id}}">Xóa</button>
+                    <button type="button" class="btn btn-primary btn-sm ms-3"><a class="btn-edit"
+                            href="user/getUserById/{{this._id}}">Sửa</a></button>
+                </td>
+            </tr>
+            {{/each}}
+
+
+        </tbody>
+    </table>
+</div>
+
+{{!-- form hidden --}}
+
+<form method="post" name="delete-comic-form"></form>
+
+
+
+{{!-- modal delete --}}
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa user</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn xóa user này?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                <button type="button" class="btn btn-primary" id="btn-delete-comic">Tiếp tục</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var deleteForm = document.forms['delete-comic-form'];
+
+        const deleteModal = document.getElementById('deleteModal')
+        deleteModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            ID_comic = button.getAttribute('data-bs-id');
+        })
+
+        var btn_del = document.getElementById('btn-delete-comic');
+        btn_del.onclick = function () {
+            deleteForm.action = 'user/deleteUser/' + ID_comic + "?_method=DELETE";
+            deleteForm.submit();
+        }
+    });
+</script>

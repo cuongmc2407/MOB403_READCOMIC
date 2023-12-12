@@ -1,0 +1,42 @@
+<div class="container">
+    <h1>Sửa thông tin truyện</h1>
+    <form id="myForm" method="post" action="/Api/comic/updateComic/{{comic._id}}?_method=PATCH" >
+        {{!-- name --}}
+        <div class="form-group">
+            <label for="name">Tên truyện:</label>
+            <input type="text" class="form-control my-2" id="name" name="name" value="{{comic.name}}" required>
+        </div>
+
+        {{!-- description --}}
+        <div class="form-group">
+            <label for="description">Mô tả:</label>
+            <input type="text" class="form-control my-2" id="description" name="description" value="{{comic.description}}" >
+        </div>
+        {{!-- author --}}
+        <div class="form-group">
+            <label for="author">Tác giả:</label>
+            <input type="text" class="form-control my-2" id="author" name="author" value="{{comic.author}}" >
+        </div>
+        {{!-- publicationYear --}}
+        <div class="form-group">
+            <label for="publicationYear">Năm xuất bản:</label>
+            <input type="Number" class="form-control my-2" id="publicationYear" name="publicationYear" value="{{comic.publicationYear}}">
+        </div>
+
+        {{!-- coverImage --}}
+        <div class="form-group">
+            <label for="coverImage" class="mb-2">Ảnh bìa:</label>
+            <input type="text" class="form-control my-2" id="coverImage" name="coverImage" value="{{comic.coverImage}}">
+        </div>
+        {{!-- images --}}
+        <div class="form-group">
+            <label for="image" class="mb-2">Ảnh truyện:</label>
+            <input type="text" class="form-control my-2" id="image" name="image" value="{{comic.images}}">
+        </div>
+
+
+
+
+        <button type="submit" class="btn btn-primary my-2">Sửa</button>
+    </form>
+</div>

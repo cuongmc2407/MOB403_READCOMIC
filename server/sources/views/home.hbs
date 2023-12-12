@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="btn-group my-2">
+        <a href="/api/comic" class="btn btn-primary active" aria-current="page">Truyện</a>
+        <a href="/api/user" class="btn btn-primary">user</a>
+    </div>
+    <h1 class="my-4  text-center">Quản lí truyện</h1>
+
+
+    <p><a href="comic/addComicForm" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Thêm
+            truyện mới</a></p>
+
+
+    <!-- Danh sách user -->
+    <table class="table table-striped table-bordered my-2">
+        <thead class="bg-dark-subtle">
+            <tr>
+                <th class="text-center">Tên truyện</th>
+                <th class="text-center">Mô tả</th>
+                <th class="text-center">Tác giả</th>
+                <th class="text-center">năm xuất bản</th>
+                <th class="text-center">ảnh bìa</th>
+                <th class="text-center">Hành động</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            {{#each comic}}
+            <tr>
+                <td class="text-center">{{this.name}}</td>
+                <td class="text-center">{{this.description}}</td>
+                <td class="text-center">{{this.author}}</td>
+                <td class="text-center">{{this.publicationYear}}</td>
+                {{!-- <td class="text-center">{{this.coverImage}}</td> --}}
+                <td class="text-center"><img src={{this.coverImage}} width="100dp" height="100dp"> </td>
+
+                <td class="text-center">
+                    <!-- Các nút xóa, sửa user -->
+                    <button type="button" class="btn btn-danger btn-sm mr-2" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal" data-bs-id="{{this._id}}">Xóa</button>
+                    <button type="button" class="btn btn-primary btn-sm ms-3"><a class="btn-edit"
+                            href="comic/getComicById/{{this._id}}">Sửa</a></button>
+                </td>
+            </tr>
+            {{/each}}
+
+
+        </tbody>
+    </table>
+</div>
+
+{{!-- form hidden --}}
+
+<form method="post" name="delete-comic-form"></form>
+
+
+
+{{!-- modal delete --}}
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa truyện</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn xóa truyện này?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                <button type="button" class="btn btn-primary" id="btn-delete-comic">Tiếp tục</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var deleteForm = document.forms['delete-comic-form'];
+
+        const deleteModal = document.getElementById('deleteModal')
+        deleteModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            ID_comic = button.getAttribute('data-bs-id');
+        })
+
+        var btn_del = document.getElementById('btn-delete-comic');
+        btn_del.onclick = function () {
+            deleteForm.action = 'comic/deleteComic/' + ID_comic + "?_method=DELETE";
+            deleteForm.submit();
+        }
+    });
+</script>

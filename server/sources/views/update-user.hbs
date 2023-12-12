@@ -1,0 +1,23 @@
+<div class="container">
+    <h1>Sửa thông user</h1>
+    <form id="myForm" method="post" action="/Api/user/update/{{user._id}}?_method=PATCH" >
+        {{!-- username --}}
+        <div class="form-group">
+            <label for="username">Tên người dùng:</label>
+            <input type="text" class="form-control my-2" id="username" name="username" value="{{user.username}}" required>
+        </div>
+
+        {{!-- email --}}
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control my-2" id="email" name="email" value="{{user.email}}" >
+        </div>
+        {{!-- fullname --}}
+        <div class="form-group">
+            <label for="fullname">Họ tên:</label>
+            <input type="text" class="form-control my-2" id="fullname" name="fullname" value="{{user.fullname}}">
+        </div>
+
+        <button type="submit" class="btn btn-primary my-2">Sửa</button>
+    </form>
+</div>
